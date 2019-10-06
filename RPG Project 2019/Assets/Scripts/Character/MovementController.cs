@@ -10,10 +10,10 @@ public class MovementController : MonoBehaviour
     Rigidbody2D rbody;
     Animator animator;
     //Controls the Character Movement Speed
-    float movespeed = 3f;
+    float movespeed = 2f;
   
 
-  
+    public bool interacting = false;
     void Start()
     {
         direction = Vector2.zero;
@@ -23,43 +23,68 @@ public class MovementController : MonoBehaviour
 
     void Update()
     {
+        direction = Vector2.zero;
 
         // Directional controls 
 
-        direction = Vector2.zero;
+        //Checks if the character is in a walking transitionable animation
+        // potentially the animation integer changes should be in this if statement 
+        // not the directional setting this would better allow for animation shifting and direction animation interuption.
 
-        if (Input.GetKey(KeyCode.W)){
+        if (animator.GetCurrentAnimatorStateInfo(0).IsTag("Walking")) {
+            SetDirection();
+        }
+    
+        //Move Function Call
+        Move();
+
+        
+    }
+
+
+    public Vector2 GetDirection() {
+        return direction;
+    }
+
+    void SetDirection() {
+       
+        if (Input.GetKey(KeyCode.W))
+        {
             direction.y += 1;
-      
+
         }
 
-        if (Input.GetKey(KeyCode.S)) {
+        if (Input.GetKey(KeyCode.S))
+        {
             direction.y -= 1;
-         
+
         }
 
-        if (Input.GetKey(KeyCode.A)) {
+        if (Input.GetKey(KeyCode.A))
+        {
             direction.x -= 1;
 
         }
-        if (Input.GetKey(KeyCode.D)) {
+        if (Input.GetKey(KeyCode.D))
+        {
             direction.x += 1;
 
         }
 
-        if ((direction.y > 0) && (direction.x == 0)) {
+        if (direction.y > 0)
+        {
             animator.SetInteger("Walking", 1);
         }
-        if ((direction.y < 0) && (direction.x == 0))
+        if (direction.y < 0)
         {
             animator.SetInteger("Walking", 4);
         }
 
-        if (direction.x > 0)
+        if (direction.x > 0 && (direction.y == 0))
         {
             animator.SetInteger("Walking", 3);
         }
-        if (direction.x < 0)
+        if ((direction.x < 0) && (direction.y == 0))
         {
             animator.SetInteger("Walking", 2);
         }
@@ -69,12 +94,7 @@ public class MovementController : MonoBehaviour
         {
             animator.SetInteger("Walking", 0);
         }
-        //Move Function Call
-        Move();
-
-        
     }
-
     void Move() {
         rbody.transform.Translate(direction * movespeed * Time.deltaTime);
     }
