@@ -6,10 +6,15 @@ public class CharacterInteraction : MonoBehaviour
 {
 
     Animator animator;
+
+    MovementController controller;
+
+    private Vector2 currentDirection;
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponentInChildren<Animator>();
+        controller = GetComponent<MovementController>();
     }
 
     // Update is called once per frame
@@ -19,11 +24,29 @@ public class CharacterInteraction : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            animator.SetInteger("Pickup", 4);
+            currentDirection = controller.GetDirection();
+            if ((currentDirection.x == 0 && currentDirection.y == 0) || (currentDirection.y == 1))
+            {
+                animator.SetInteger("Pickup", 1);
+            }
+            else if (currentDirection.y == -1) {
+                animator.SetInteger("Pickup", 4);
+            }
+            else if (currentDirection.x == -1)
+            {
+                animator.SetInteger("Pickup", 2);
+            }
+            else if (currentDirection.x == 1)
+            {
+                animator.SetInteger("Pickup", 3);
+            }
+
+
+
 
         }
-       
-    
+
+
     }
 
     private void FixedUpdate()

@@ -36,9 +36,14 @@ public class MovementController : MonoBehaviour
         }
     
         //Move Function Call
-        Move();
+       
 
         
+    }
+
+    void FixedUpdate()
+    {
+        Move();
     }
 
 
