@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CharacterInteraction : MonoBehaviour
 {
+    public LayerMask mask;
 
     Animator animator;
 
@@ -21,9 +22,25 @@ public class CharacterInteraction : MonoBehaviour
     void Update()
     {
         animator.SetInteger("Pickup", 0);
+  
+
 
         if (Input.GetKeyDown(KeyCode.E))
         {
+
+            RaycastHit2D[] interactables = Physics2D.CircleCastAll(this.transform.position, 2f, new Vector2(0f, 0f), Mathf.Infinity, mask);
+
+            if (interactables.Length != 0)
+            {
+                GameObject target = interactables[0].transform.gameObject;
+                Iinteractable[] interacts = target.GetComponents<Iinteractable>();
+
+                foreach (Iinteractable interact in interacts)
+                {
+                    interact.Interact();
+                }
+            }
+
             currentDirection = controller.GetDirection();
             if ((currentDirection.x == 0 && currentDirection.y == 0) || (currentDirection.y == 1))
             {
