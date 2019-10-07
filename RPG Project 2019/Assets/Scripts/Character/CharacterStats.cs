@@ -14,10 +14,10 @@ public class CharacterStats : MonoBehaviour
 
     private void Awake()
     {
-        strength = new Stat(3f);
+        strength = new Strength(3f, "Strength");
 
-        Debug.Log(strength.Value);
         statPanel = GameObject.Find("Canvas").transform.Find("tempStatPanel").gameObject;
+
     }
     // Start is called before the first frame update
     void Start()

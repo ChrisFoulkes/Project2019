@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Stat
+public abstract class Stat
 {
     public float baseValue;
+    private string statName;
 
     public int Value {
         get {
@@ -21,8 +22,9 @@ public class Stat
 
 
 
-    public Stat(float basevalue) {
+    public Stat(float basevalue, string name) {
         baseValue = basevalue;
+        statName = name;
         statModifiers = new List<StatModifier>();
     
     }
@@ -68,4 +70,11 @@ public class Stat
         return Mathf.RoundToInt(finalvalue);
     }
     
+}
+
+
+public class Strength : Stat{
+    public Strength(float basevalue, string name) : base(basevalue, name) {
+    }
+
 }

@@ -4,18 +4,22 @@ using UnityEngine;
 
 public class CharacterInteraction : MonoBehaviour
 {
+    
     public LayerMask mask;
 
     Animator animator;
 
     MovementController controller;
 
+
+    //Is the Character Currently Interacting
     private bool Interacting = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        animator = GetComponentInChildren<Animator>();
+        mask = LayerMask.GetMask("Interactable");
+        animator = transform.Find("Character Sprite").GetComponent<Animator>();
         controller = GetComponent<MovementController>();
     }
 
@@ -79,12 +83,7 @@ public class CharacterInteraction : MonoBehaviour
 
 
     }
-
-    private void FixedUpdate()
-    {
-        
-
-    }
+    
 
 
     private void OnDrawGizmosSelected()
