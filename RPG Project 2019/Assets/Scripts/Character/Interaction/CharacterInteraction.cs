@@ -10,13 +10,22 @@ public class CharacterInteraction : MonoBehaviour
 
     MovementController controller;
 
-    private Vector2 currentDirection;
+    private bool Interacting = false;
+
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponentInChildren<Animator>();
         controller = GetComponent<MovementController>();
     }
+
+
+    //Called by the animation statemachine to signal animation completion
+    public void PickupAnimationComplete() {
+        Debug.Log("Pickup Animation Complete!");
+        Interacting = false;
+    }
+
 
     // Update is called once per frame
     void Update()
@@ -25,39 +34,44 @@ public class CharacterInteraction : MonoBehaviour
   
 
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if ((Input.GetKeyDown(KeyCode.E)) && (Interacting == false))
         {
 
-            RaycastHit2D[] interactables = Physics2D.CircleCastAll(this.transform.position, 2f, new Vector2(0f, 0f), Mathf.Infinity, mask);
+            Interacting = true;
+       
+            
+                RaycastHit2D[] interactables = Physics2D.CircleCastAll(this.transform.position, 2f, new Vector2(0f, 0f), Mathf.Infinity, mask);
 
-            if (interactables.Length != 0)
-            {
-                GameObject target = interactables[0].transform.gameObject;
-                Iinteractable[] interacts = target.GetComponents<Iinteractable>();
-
-                foreach (Iinteractable interact in interacts)
+                if (interactables.Length != 0)
                 {
-                    interact.Interact();
-                }
-            }
+                    GameObject target = interactables[0].transform.gameObject;
+                    Iinteractable[] interacts = target.GetComponents<Iinteractable>();
 
-            currentDirection = controller.GetDirection();
-            if ((currentDirection.x == 0 && currentDirection.y == 0) || (currentDirection.y == 1))
+                    foreach (Iinteractable interact in interacts)
+                    {
+                        interact.Interact();
+
+                    }
+                }
+            
+
+
+            if (controller.facing == 1)
             {
                 animator.SetInteger("Pickup", 1);
             }
-            else if (currentDirection.y == -1) {
+            else if (controller.facing == 4)
+            {
                 animator.SetInteger("Pickup", 4);
             }
-            else if (currentDirection.x == -1)
+            else if (controller.facing == 2)
             {
                 animator.SetInteger("Pickup", 2);
             }
-            else if (currentDirection.x == 1)
+            else if (controller.facing == 3)
             {
                 animator.SetInteger("Pickup", 3);
             }
-
 
 
 

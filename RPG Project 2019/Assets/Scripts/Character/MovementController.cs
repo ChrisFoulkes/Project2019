@@ -6,14 +6,18 @@ public class MovementController : MonoBehaviour
 {
 
     public Vector2 direction;
+    public int facing = 1;
+
 
     Rigidbody2D rbody;
     Animator animator;
     //Controls the Character Movement Speed
     float movespeed = 2f;
+
+    
   
 
-    public bool interacting = false;
+
     void Start()
     {
         direction = Vector2.zero;
@@ -79,19 +83,24 @@ public class MovementController : MonoBehaviour
         if (direction.y > 0)
         {
             animator.SetInteger("Walking", 1);
+            facing = 1;
         }
         if (direction.y < 0)
         {
             animator.SetInteger("Walking", 4);
+            facing = 4;
         }
 
         if (direction.x > 0 && (direction.y == 0))
         {
             animator.SetInteger("Walking", 3);
+            facing = 3;
         }
         if ((direction.x < 0) && (direction.y == 0))
         {
             animator.SetInteger("Walking", 2);
+            animator.SetInteger("Facing", 2);
+            facing = 2;
         }
 
 
@@ -101,7 +110,7 @@ public class MovementController : MonoBehaviour
         }
     }
     void Move() {
-        rbody.transform.Translate(direction * movespeed * Time.deltaTime);
+        rbody.transform.Translate(direction * movespeed * Time.fixedDeltaTime);
     }
 
 }
