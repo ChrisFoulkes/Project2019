@@ -19,3 +19,14 @@ public class ButtonPress : EventInfo
     }
 
 }
+
+
+public class StatChange : EventInfo
+{
+    public Stat Stat;
+
+    public StatChange(Stat stat) {
+        Stat = stat;
+    }
+
+}
