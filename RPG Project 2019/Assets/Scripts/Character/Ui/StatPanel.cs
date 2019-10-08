@@ -24,17 +24,19 @@ public class StatPanel : MonoBehaviour
 
         eventManager = FindObjectOfType<EventManager>();
 
+        EventManager.Current.RegisterListener<StatChange>(StatChange);
+
         strValue = transform.Find("StrengthValue").GetComponent<TextMeshProUGUI>();
         strValue.text = characterStats.statDict[StatName.Strength].Value.ToString();
+        statTextValues.Add(characterStats.statDict[StatName.Strength], strValue);
 
         agiValue = transform.Find("AgilityValue").GetComponent<TextMeshProUGUI>();
         agiValue.text = characterStats.statDict[StatName.Agility].Value.ToString();
-
-
-        EventManager.Current.RegisterListener<StatChange>(StatChange);
-
-        statTextValues.Add(characterStats.statDict[StatName.Strength], strValue);
         statTextValues.Add(characterStats.statDict[StatName.Agility], agiValue);
+
+
+
+
     }
 
     // Update is called once per frame

@@ -8,7 +8,7 @@ public class Gold : MonoBehaviour, Iinteractable
       
     }
 
-    public void Interact() {
+    public void Interact(GameObject interacter) {
 
         Debug.Log("5 gold added!");
         PopupText.Instance.GenerateText("5 gold added!");

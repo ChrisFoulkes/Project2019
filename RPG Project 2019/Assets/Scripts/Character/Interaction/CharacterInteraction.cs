@@ -53,7 +53,7 @@ public class CharacterInteraction : MonoBehaviour
 
                     foreach (Iinteractable interact in interacts)
                     {
-                        interact.Interact();
+                        interact.Interact(gameObject);
 
                     }
                 }

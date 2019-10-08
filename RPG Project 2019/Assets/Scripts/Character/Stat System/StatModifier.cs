@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class StatModifier
 {
+    [SerializeField]
     float value;
 
-    public StatName targetStat;
+    [SerializeField]
+    StatName targetStat;
+
     public StatModifier(float pvalue,  StatName ptarget) {
         value = pvalue;
         targetStat = ptarget;
