@@ -12,6 +12,7 @@ public class StatPanel : MonoBehaviour
 
     TextMeshProUGUI strValue;
 
+    TextMeshProUGUI agiValue;
 
     // Start is called before the first frame update
 
@@ -24,11 +25,16 @@ public class StatPanel : MonoBehaviour
         eventManager = FindObjectOfType<EventManager>();
 
         strValue = transform.Find("StrengthValue").GetComponent<TextMeshProUGUI>();
-        strValue.text = characterStats.strength.Value.ToString();
+        strValue.text = characterStats.statDict[StatName.Strength].Value.ToString();
+
+        agiValue = transform.Find("AgilityValue").GetComponent<TextMeshProUGUI>();
+        agiValue.text = characterStats.statDict[StatName.Agility].Value.ToString();
+
 
         EventManager.Current.RegisterListener<StatChange>(StatChange);
 
-        statTextValues.Add(characterStats.strength, strValue);
+        statTextValues.Add(characterStats.statDict[StatName.Strength], strValue);
+        statTextValues.Add(characterStats.statDict[StatName.Agility], agiValue);
     }
 
     // Update is called once per frame
@@ -36,6 +42,7 @@ public class StatPanel : MonoBehaviour
     {
         
     }
+
 
     void StatChange(StatChange statChange) {
         if (statTextValues[statChange.Stat] != null)
