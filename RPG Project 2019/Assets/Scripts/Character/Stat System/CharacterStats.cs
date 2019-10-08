@@ -8,7 +8,7 @@ public class CharacterStats : MonoBehaviour
 
 
     GameObject statPanel;
-
+    GameObject characterPanel;
 
     public Dictionary<StatName, Stat> statDict = new Dictionary<StatName, Stat>();
 
@@ -27,6 +27,7 @@ public class CharacterStats : MonoBehaviour
 
         //Temp Panel buttons remove soon
         statPanel = GameObject.Find("Canvas").transform.Find("tempStatPanel").gameObject;
+        characterPanel = GameObject.Find("Canvas").transform.Find("CharacterPanel").gameObject;
 
     }
 
@@ -57,7 +58,17 @@ public class CharacterStats : MonoBehaviour
         }
         //---------------------------
 
-
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            if (characterPanel.activeSelf)
+            {
+                characterPanel.SetActive(false);
+            }
+            else
+            {
+                characterPanel.SetActive(true);
+            }
+        }
 
         //Testing stat modifer buttons
         if (Input.GetKeyDown(KeyCode.F))

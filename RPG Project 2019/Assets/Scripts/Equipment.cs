@@ -16,6 +16,8 @@ public class Equipment
     public string name;
     public EquipmentType equipmentType;
 
+    public string icon; 
+
     [SerializeField]
     List<StatModifier> itemStats = new List<StatModifier>();
 
@@ -24,9 +26,10 @@ public class Equipment
     CharacterInventory inventory;
 
 
-    public Equipment(string pname, EquipmentType type) {
+    public Equipment(string pname, EquipmentType type, string psprite = "UnsetIcon") {
         name = pname;
         equipmentType = type;
+        icon = psprite;
     }
 
     public void AddItemStat(StatModifier mod) {

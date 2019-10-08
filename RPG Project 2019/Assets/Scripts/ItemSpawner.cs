@@ -30,12 +30,14 @@ public class ItemSpawner : MonoBehaviour, Iinteractable
     }
 
     void GenerateItem(GameObject player) {
-        Equipment testitem = new Equipment("Test HELM", EquipmentType.Helm);
+        Equipment testitem = new Equipment("Test HELM", EquipmentType.Helm, "ItemIcons/icon_circlet_helm");
 
 
         StatModifier mod = new StatModifier(3f, StatName.Strength);
 
         testitem.AddItemStat(mod);
+
+        
 
 
         equipmentDisplay = testitem;

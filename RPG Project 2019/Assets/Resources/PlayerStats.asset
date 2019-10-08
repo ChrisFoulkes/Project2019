@@ -12,4 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29fa86d402547f04bb6dc2bf23c0f204, type: 3}
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
-  StatsList: 
+  statList:
+  - startingvalue: 3
+    statName: 0
+  - startingvalue: 5
+    statName: 1

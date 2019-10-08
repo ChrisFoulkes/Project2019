@@ -30,3 +30,15 @@ public class StatChange : EventInfo
     }
 
 }
+
+
+public class ItemEquipped : EventInfo
+{
+    public Equipment equipment;
+
+    public ItemEquipped(Equipment item)
+    {
+        equipment = item;
+    }
+
+}

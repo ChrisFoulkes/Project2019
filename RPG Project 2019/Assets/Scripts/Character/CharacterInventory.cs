@@ -31,6 +31,10 @@ public class CharacterInventory : MonoBehaviour
 
     public void EquipItem(EquipmentType slot, Equipment equipment) {
         equipmentDict.Add(slot, equipment);
+
+
+        ItemEquipped itemEquipped = new ItemEquipped(equipment);
+        EventManager.Current.TriggerEvent(itemEquipped);
         PopupText.Instance.GenerateText("Equipped Item: " + equipment.name);
         
     }
