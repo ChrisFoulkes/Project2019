@@ -5,8 +5,6 @@ using UnityEditor;
 
 public class CharacterStats : MonoBehaviour
 {
-
-
     GameObject statPanel;
     GameObject characterPanel;
 

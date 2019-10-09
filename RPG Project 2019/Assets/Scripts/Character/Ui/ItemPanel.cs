@@ -8,25 +8,48 @@ public class ItemPanel : MonoBehaviour
 
     Image[] images;
 
-    Dictionary<EquipmentType, Image> equipmentSlotDict = new Dictionary<EquipmentType, Image>();
+
+    public ItemSlot[] itemSlots;
+
+
+    Dictionary<EquipmentType, ItemSlot> equipmentSlotDict = new Dictionary<EquipmentType, ItemSlot>();
 
     // Start is called before the first frame update
+
+
+
+     // start awake functions not called on a disabled objectes could alter the function to check if images is set but the event listener wouldnt be enabled. 
+   
     void Start()
     {
+        Transform slots = transform.Find("ItemUiHolder");
 
-        Transform itemslots = transform.Find("ItemSlots");
-        images = itemslots.GetComponentsInChildren<Image>();
+
+        itemSlots = slots.GetComponentsInChildren<ItemSlot>();
+      
 
 
         int counter = 0;
         foreach (EquipmentType item in EquipmentType.GetValues(typeof(EquipmentType)))
         {
-            equipmentSlotDict.Add(item, images[counter]);
+
+            if (counter > itemSlots.Length) {
+                break;
+            }
+
+            equipmentSlotDict.Add(item, itemSlots[counter]);
+
+            counter++;
         }
 
+    
 
-        EventManager.Current.RegisterListener<ItemEquipped>(AddIcon);
+        EventManager.Current.RegisterListener<ItemEquipped>(UpdateSlot);
+
+        gameObject.SetActive(false);
+
     }
+ 
 
     // Update is called once per frame
     void Update()
@@ -34,15 +57,9 @@ public class ItemPanel : MonoBehaviour
         
     }
 
-    void AddIcon(ItemEquipped itemequip) {
-        Debug.Log("Called!");
-        Image image = equipmentSlotDict[itemequip.equipment.equipmentType];
-        Sprite icon = Resources.Load<Sprite>(itemequip.equipment.icon);
-        
-        image.overrideSprite = icon;
+    void UpdateSlot(ItemEquipped itemequip) {
+        ItemSlot slot = equipmentSlotDict[itemequip.equipment.equipmentType];
+        slot.EquipItem(itemequip.equipment);
     }
 
-    void RemoveIcon() {
-        //need to impliment 
-    }
 }

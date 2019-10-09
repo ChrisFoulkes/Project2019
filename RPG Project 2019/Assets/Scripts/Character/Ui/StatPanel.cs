@@ -35,8 +35,6 @@ public class StatPanel : MonoBehaviour
         statTextValues.Add(characterStats.statDict[StatName.Agility], agiValue);
 
 
-
-
     }
 
     // Update is called once per frame
