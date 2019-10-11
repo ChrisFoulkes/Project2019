@@ -5,7 +5,9 @@ using UnityEngine;
 public class CharacterInventory : MonoBehaviour
 {
 
-    Dictionary<EquipmentType, Equipment> equipmentDict = new Dictionary<EquipmentType, Equipment>(); 
+    Dictionary<EquipmentType, Equipment> equipmentDict = new Dictionary<EquipmentType, Equipment>();
+
+   
     // Start is called before the first frame update
 
     void Start()
@@ -19,6 +21,15 @@ public class CharacterInventory : MonoBehaviour
         
     }
 
+    public Equipment GetItemSlot(EquipmentType slot) {
+        if (!CheckEmptySlot(slot)){
+            return equipmentDict[slot];
+        }
+        else {
+            return null;
+        }
+    }
+
     public bool CheckEmptySlot(EquipmentType slot) {
         if (equipmentDict.ContainsKey(slot))
         {
@@ -27,6 +38,13 @@ public class CharacterInventory : MonoBehaviour
         else {
             return true;
         }
+    }
+
+    public void RemoveItem(EquipmentType slot) {
+        PopupText.Instance.GenerateText("Item DELETED! + " + equipmentDict[slot].name);
+        equipmentDict.Remove(slot);
+     
+
     }
 
     public void EquipItem(EquipmentType slot, Equipment equipment) {

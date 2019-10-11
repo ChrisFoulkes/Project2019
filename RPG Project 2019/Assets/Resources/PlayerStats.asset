@@ -17,3 +17,5 @@ MonoBehaviour:
     statName: 0
   - startingvalue: 5
     statName: 1
+  - startingvalue: 2
+    statName: 2

@@ -5,8 +5,11 @@ using UnityEditor;
 
 public class CharacterStats : MonoBehaviour
 {
+
     GameObject statPanel;
+
     GameObject characterPanel;
+
 
     public Dictionary<StatName, Stat> statDict = new Dictionary<StatName, Stat>();
 
@@ -16,16 +19,16 @@ public class CharacterStats : MonoBehaviour
 
     private void Awake()
     {
-      
-
         StartingStatData startingStat = Resources.Load<StartingStatData>("PlayerStats");
 
-        GenerateStats(startingStat);
-        
 
-        //Temp Panel buttons remove soon
-        statPanel = GameObject.Find("Canvas").transform.Find("tempStatPanel").gameObject;
-        characterPanel = GameObject.Find("Canvas").transform.Find("CharacterPanel").gameObject;
+        //Panel References
+        statPanel = GameObject.Find("CharacterUiPanels").transform.Find("CharacterStatPanel").gameObject;
+        characterPanel = GameObject.Find("CharacterUiPanels").transform.Find("CharacterInventoryPanel").gameObject;
+
+        GenerateStats(startingStat);
+       
+       
 
     }
 
@@ -43,31 +46,7 @@ public class CharacterStats : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //needs to be removed 
-        if (Input.GetKeyDown(KeyCode.C)) {
-            if (statPanel.activeSelf)
-            {
-                statPanel.SetActive(false);
-            }
-            else
-            {
-                statPanel.SetActive(true);
-            }
-        }
-        //---------------------------
-
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            if (characterPanel.activeSelf)
-            {
-                characterPanel.SetActive(false);
-            }
-            else
-            {
-                characterPanel.SetActive(true);
-            }
-        }
-
+       
         //Testing stat modifer buttons
         if (Input.GetKeyDown(KeyCode.F))
         {
@@ -85,12 +64,20 @@ public class CharacterStats : MonoBehaviour
     }
 
     void GenerateStats(StartingStatData pstatlist) {
+
+        //resets stats-- warning!
+
         statList.Clear();
+
         foreach (BasicStatData statData in pstatlist.statList)
         {
-            statList.Add(new Stat(statData.startingvalue, statData.statName));
+            
+            if (statDict.ContainsKey(statData.statName))
+            {
+                Debug.LogWarning("Player Duplicate stat implimentation warning!");
+            }
 
-            statDict.Add(statData.statName, statList[(statList.Count - 1)]);
+            statDict.Add(statData.statName, new Stat(statData.startingvalue, statData.statName));
         }
 
     }

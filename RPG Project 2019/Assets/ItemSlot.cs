@@ -8,25 +8,17 @@ using UnityEngine.UI;
 [System.Serializable]
 public class ItemSlot : MonoBehaviour
 {
+
     [SerializeField]
     Equipment equipped;
 
     bool empty = true;
 
     Image itemImage;
-    // Start is called before the first frame update
-    void Start()
-    {
-        itemImage = GetComponent<Image>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+ 
     public void EquipItem(Equipment equipment) {
+        if(itemImage == null) { itemImage = GetComponent<Image>(); }
+        
         empty = false;
         equipped = equipment;
         itemImage.sprite = Resources.Load<Sprite>(equipped.icon);
@@ -38,7 +30,7 @@ public class ItemSlot : MonoBehaviour
 
         if (empty == false)
         {
-            PopupText.Instance.GenerateText("Item DELETED! + " + equipped.name);
+            equipped.Unequip();
             equipped = null;
             empty = true;
             itemImage.sprite = null;

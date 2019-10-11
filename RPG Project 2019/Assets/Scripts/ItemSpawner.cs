@@ -5,7 +5,8 @@ using UnityEngine;
 public class ItemSpawner : MonoBehaviour, Iinteractable
 {
 
-
+    public EquipmentType type = EquipmentType.Helm;
+    public string icon = "ItemIcons/icon_plate_helm";
     public Equipment equipmentDisplay;
 
     // Start is called before the first frame update
@@ -30,7 +31,7 @@ public class ItemSpawner : MonoBehaviour, Iinteractable
     }
 
     void GenerateItem(GameObject player) {
-        Equipment testitem = new Equipment("Test HELM", EquipmentType.Helm, "ItemIcons/icon_circlet_helm");
+        Equipment testitem = new Equipment("Test HELM", type, icon );
 
 
         StatModifier mod = new StatModifier(3f, StatName.Strength);

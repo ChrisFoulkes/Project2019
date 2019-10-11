@@ -5,7 +5,8 @@ using UnityEngine;
 public enum StatName {
     Strength,
     Agility,
-    Intelligence
+    Intelligence,
+    Vitality
 
 }
 

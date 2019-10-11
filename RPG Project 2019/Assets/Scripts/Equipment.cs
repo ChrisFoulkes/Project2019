@@ -5,7 +5,8 @@ using UnityEngine;
 public enum EquipmentType {
     Helm,
     Chest,
-    Gloves
+    Gloves,
+    Boots
 }
 
 
@@ -25,6 +26,8 @@ public class Equipment
 
     CharacterInventory inventory;
 
+   
+
 
     public Equipment(string pname, EquipmentType type, string psprite = "UnsetIcon") {
         name = pname;
@@ -36,8 +39,8 @@ public class Equipment
         itemStats.Add(mod);
     }
 
-    public void Equip(GameObject Character) {
-        inventory = Character.GetComponent<CharacterInventory>();
+    public void Equip(GameObject character) {
+        inventory = character.GetComponent<CharacterInventory>();
 
         if (inventory.CheckEmptySlot(equipmentType)){
             inventory.EquipItem(equipmentType, this);
@@ -52,9 +55,11 @@ public class Equipment
     }
 
     public void Unequip() {
-      //  foreach (StatModifier mod in itemStats) {
-    //        characterStats.statDict[mod.targetStat].RemoveModifier(mod);
-     //   }
+        inventory.RemoveItem(equipmentType);
+
+        //  foreach (StatModifier mod in itemStats) {
+        //        characterStats.statDict[mod.targetStat].RemoveModifier(mod);
+        //   }
     }
 }
 
