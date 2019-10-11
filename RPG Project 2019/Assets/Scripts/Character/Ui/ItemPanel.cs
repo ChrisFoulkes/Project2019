@@ -68,7 +68,7 @@ public class ItemPanel : MonoBehaviour
             counter++;
         }
 
-       Debug.Log(equipmentSlotDict[EquipmentType.Chest]);
+
     }
 
     public void OnEnable()

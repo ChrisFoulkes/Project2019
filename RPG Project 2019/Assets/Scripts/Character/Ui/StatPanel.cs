@@ -44,7 +44,7 @@ public class StatPanel : MonoBehaviour
 
        
        
-        Debug.Log(characterStats.statDict.Count);
+
         statnames = characterStats.statDict.Keys.ToList();
 
         int counter = 0;

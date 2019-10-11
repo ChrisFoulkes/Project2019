@@ -13,7 +13,7 @@ public class ItemSlot : MonoBehaviour
     Equipment equipped;
 
     bool empty = true;
-
+    bool waitingOnConfirm = false;
     Image itemImage;
  
     public void EquipItem(Equipment equipment) {
@@ -24,26 +24,45 @@ public class ItemSlot : MonoBehaviour
         itemImage.sprite = Resources.Load<Sprite>(equipped.icon);
     }
 
-    public void RemoveItem() {
-
-        //need to add a confirmation box window system 
-
-        if (empty == false)
-        {
-            equipped.Unequip();
-            equipped = null;
-            empty = true;
-            itemImage.sprite = null;
-        }
-    }
 
     public void OnMouseDown()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0)){
- 
-            RemoveItem();
+            if (empty == false && waitingOnConfirm == false)
+            {
+                Debug.Log("remove item!");
+                StartCoroutine(RemoveItem());
+            }
+            
            
         }
        
     }
+
+    IEnumerator RemoveItem()
+    {
+        // whatever you're doing now with the temporary / placement preview building
+        waitingOnConfirm = true;
+        ConfirmationData ConfirmCheck = ConfirmationPopup.Current.GenerateConfirmPopup("Removing item: " + equipped.name + " ? " );
+
+        while (ConfirmCheck.confirm == ConfirmResult.none)
+        {
+            yield return null; // wait
+        }
+        if (ConfirmCheck.confirm == ConfirmResult.yes)
+        {
+
+                equipped.Unequip();
+                equipped = null;
+                empty = true;
+                itemImage.sprite = null;
+                waitingOnConfirm = false;
+
+        }
+        else if (ConfirmCheck.confirm == ConfirmResult.no)
+        {
+            waitingOnConfirm = false;
+        }
+    }
+
 }
