@@ -19,6 +19,15 @@ public class ItemPickup : MonoBehaviour, Iinteractable
 
     public void Interact(GameObject interacter)
     {
-        interacter.GetComponent<CharacterInventory>().RemoveItem(EquipmentType.Helm);
+        CharacterInventory charinventory = interacter.GetComponent<CharacterInventory>();
+
+        if (!charinventory.CheckEmptySlot(EquipmentType.Helm))
+        {
+                 charinventory.RemoveItem(EquipmentType.Helm);
+        }
+        else {
+            PopupText.Instance.GenerateText("Grrrr no shiny for me to steal!");
+        }
+
     }
 }

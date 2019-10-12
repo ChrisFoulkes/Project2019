@@ -67,6 +67,7 @@ public class ItemPanel : MonoBehaviour
 
         //listener for item equips 
         EventManager.Current.RegisterListener<ItemEquipped>(UpdateSlot);
+        EventManager.Current.RegisterListener<ItemUnequipped>(ClearSlot);
 
         //creates a dictionary of equipment type to associated slots 
         int counter = 0;
@@ -133,6 +134,13 @@ public class ItemPanel : MonoBehaviour
         else {
             isdirty = true;
         }
+    }
+
+    
+     void ClearSlot(ItemUnequipped item) {
+        ItemSlot slot = equipmentSlotDict[item.equipment.equipmentType];
+        slot.SetDefault();
+        // create a remove item event script 
     }
 
     public void DisablePanel()

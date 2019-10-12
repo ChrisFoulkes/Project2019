@@ -53,13 +53,21 @@ public class CharacterInventory : MonoBehaviour
     public void RemoveItem(EquipmentType slot) {
         if (!CheckEmptySlot(slot))
         {
+           
+           
+
+            ItemUnequipped itemUnequipped = new ItemUnequipped(equipmentDict[slot]);
+
+            EventManager.Current.TriggerEvent(itemUnequipped);
+
+            PopupText.Instance.GenerateText(equipmentDict[slot].name + " Destroyed!");
+
+
             equipmentDict[slot].Unequip();
-            
-            //fire item removed event () create 
 
             equipmentDict.Remove(slot);
 
-            PopupText.Instance.GenerateText(equipmentDict[slot].name + " Destroyed!");
+          
 
         }
 

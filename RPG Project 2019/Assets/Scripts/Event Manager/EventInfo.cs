@@ -42,3 +42,14 @@ public class ItemEquipped : EventInfo
     }
 
 }
+
+public class ItemUnequipped : EventInfo
+{
+    public Equipment equipment;
+
+    public ItemUnequipped(Equipment item)
+    {
+        equipment = item;
+    }
+
+}
