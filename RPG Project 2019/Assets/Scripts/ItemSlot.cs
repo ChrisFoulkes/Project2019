@@ -14,24 +14,43 @@ public class ItemSlot : MonoBehaviour
 
     bool empty = true;
     bool waitingOnConfirm = false;
+
     Image itemImage;
+    public Sprite DefaultIcon;
+    ItemPanel parentPanel;
+
+    private void Start()
+    {
+        itemImage = GetComponent<Image>(); 
+
+        DefaultIcon = itemImage.sprite;
+
+    }
+    public void SetPanel(ItemPanel panel) {
+        parentPanel = panel;
+    }
+
+    public void SetItem(Equipment equipment) {
  
-    public void EquipItem(Equipment equipment) {
-        if(itemImage == null) { itemImage = GetComponent<Image>(); }
-        
+       
         empty = false;
         equipped = equipment;
         itemImage.sprite = Resources.Load<Sprite>(equipped.icon);
     }
 
 
+    public void SetDefault() {
+        equipped = null;
+        empty = true;
+        itemImage.sprite = DefaultIcon;
+    }
+
     public void OnMouseDown()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0)){
             if (empty == false && waitingOnConfirm == false)
             {
-                Debug.Log("remove item!");
-                StartCoroutine(RemoveItem());
+                StartCoroutine(RightClickRemoveItem());
             }
             
            
@@ -39,9 +58,10 @@ public class ItemSlot : MonoBehaviour
        
     }
 
-    IEnumerator RemoveItem()
+    IEnumerator RightClickRemoveItem()
     {
         // whatever you're doing now with the temporary / placement preview building
+
         waitingOnConfirm = true;
         ConfirmationData ConfirmCheck = ConfirmationPopup.Current.GenerateConfirmPopup("Removing item: " + equipped.name + " ? " );
 
@@ -52,16 +72,18 @@ public class ItemSlot : MonoBehaviour
         if (ConfirmCheck.confirm == ConfirmResult.yes)
         {
 
-                equipped.Unequip();
-                equipped = null;
-                empty = true;
-                itemImage.sprite = null;
-                waitingOnConfirm = false;
+            equipped.inventory.RemoveItem(equipped.equipmentType);
+            equipped = null;
+            empty = true;
+            itemImage.sprite = DefaultIcon;
+            waitingOnConfirm = false;
+
 
         }
         else if (ConfirmCheck.confirm == ConfirmResult.no)
         {
             waitingOnConfirm = false;
+     
         }
     }
 

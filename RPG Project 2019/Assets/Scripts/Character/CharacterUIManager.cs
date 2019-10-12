@@ -24,7 +24,7 @@ public class CharacterUIManager : MonoBehaviour
 
     public void LoadUi(CharacterInventory pinventory, CharacterStats pstats) {
         statPanel = transform.Find("CharacterStatPanel").gameObject;
-        inventoryPanel = transform.Find("CharacterInventoryPanel").gameObject;
+        inventoryPanel = transform.Find("CharacterInventoryUi").gameObject;
 
         stats = statPanel.GetComponent<StatPanel>();
         inventory = inventoryPanel.GetComponent<ItemPanel>();
@@ -55,13 +55,15 @@ public class CharacterUIManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.T))
         {
-            if (inventoryPanel.activeSelf)
+            if (inventory.panelactive)
             {
-                inventoryPanel.SetActive(false);
+
+                inventory.DisablePanel();
+                
             }
             else
             {
-                inventoryPanel.SetActive(true);
+                inventory.EnablePanel();
             }
         }
 

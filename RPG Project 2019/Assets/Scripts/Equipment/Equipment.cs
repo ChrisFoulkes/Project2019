@@ -24,7 +24,7 @@ public class Equipment
 
     List<Behaviour> itemBehaviours;
 
-    CharacterInventory inventory;
+    public CharacterInventory inventory;
 
    
 
@@ -42,21 +42,14 @@ public class Equipment
     public void Equip(GameObject character) {
         inventory = character.GetComponent<CharacterInventory>();
 
-        if (inventory.CheckEmptySlot(equipmentType)){
-            inventory.EquipItem(equipmentType, this);
-        }
-        else
-        {
-            PopupText.Instance.GenerateText("Item in slot: " + equipmentType + " already equipped!");
-        }
         //foreach (StatModifier mod in itemStats) {
         //    characterStats.statDict[mod.targetStat].AddModifier(mod);
        // }
     }
 
     public void Unequip() {
-        inventory.RemoveItem(equipmentType);
 
+    
         //  foreach (StatModifier mod in itemStats) {
         //        characterStats.statDict[mod.targetStat].RemoveModifier(mod);
         //   }

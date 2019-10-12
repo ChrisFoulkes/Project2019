@@ -24,7 +24,7 @@ public class CharacterStats : MonoBehaviour
 
         //Panel References
         statPanel = GameObject.Find("CharacterUiPanels").transform.Find("CharacterStatPanel").gameObject;
-        characterPanel = GameObject.Find("CharacterUiPanels").transform.Find("CharacterInventoryPanel").gameObject;
+        //characterPanel = GameObject.Find("CharacterUiPanels").transform.Find("CharacterInventoryPanel").gameObject;
 
         GenerateStats(startingStat);
        

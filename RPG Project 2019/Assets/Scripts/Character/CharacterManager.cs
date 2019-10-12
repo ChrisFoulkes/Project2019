@@ -10,6 +10,9 @@ public class CharacterManager : MonoBehaviour
     CharacterInventory characterInventory;
 
     CharacterStats characterStats;
+
+
+    public ItemPanel InventoryUi;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,5 +28,17 @@ public class CharacterManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public ItemPanel GetInventoryUi() {
+        if (InventoryUi == null)
+        {
+            Debug.LogWarning("INVENTORY UI NOT SET FIX NOW!");
+            return null;
+        }
+        else
+        {
+            return InventoryUi;
+        }
     }
 }

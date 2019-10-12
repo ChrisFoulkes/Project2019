@@ -50,6 +50,6 @@ public class ItemSpawner : MonoBehaviour, Iinteractable
 
     void PickupItem(GameObject player)
     {
-        equipmentDisplay.Equip(player);
+        player.GetComponent<CharacterInventory>().EquipItem(equipmentDisplay);
     }
 }

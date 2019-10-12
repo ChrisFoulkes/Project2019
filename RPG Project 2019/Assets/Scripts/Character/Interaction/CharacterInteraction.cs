@@ -5,7 +5,7 @@ using UnityEngine;
 public class CharacterInteraction : MonoBehaviour
 {
     
-    public LayerMask mask;
+    LayerMask mask;
 
     Animator animator;
 
@@ -26,7 +26,7 @@ public class CharacterInteraction : MonoBehaviour
 
     //Called by the animation statemachine to signal animation completion
     public void PickupAnimationComplete() {
-        Debug.Log("Pickup Animation Complete!");
+
         Interacting = false;
     }
 

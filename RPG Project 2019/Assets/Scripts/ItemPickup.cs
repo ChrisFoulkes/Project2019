@@ -19,6 +19,6 @@ public class ItemPickup : MonoBehaviour, Iinteractable
 
     public void Interact(GameObject interacter)
     {
-        
+        interacter.GetComponent<CharacterInventory>().RemoveItem(EquipmentType.Helm);
     }
 }
