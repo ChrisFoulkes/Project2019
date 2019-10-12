@@ -33,20 +33,6 @@ public class ItemPanel : MonoBehaviour
 
      // start awake functions not called on a disabled objectes could alter the function to check if images is set but the event listener wouldnt be enabled. 
    
-    void Start()
-    {
-   
-
-        
-
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void Initalize(CharacterInventory pinventory) {
         panel = transform.Find("InventoryPanel").GetComponent<Image>();
@@ -55,17 +41,15 @@ public class ItemPanel : MonoBehaviour
 
         slotImages = slotHolder.GetComponentsInChildren<Image>();
         slotColliders = slotHolder.GetComponentsInChildren<BoxCollider2D>();
-
         itemTexts = textHolder.GetComponentsInChildren<TextMeshProUGUI>();
 
-
-        inventory = pinventory;
         Transform slots = transform.Find("InventoryPanel").Find("ItemUiHolder");
 
-
         itemSlots = slots.GetComponentsInChildren<ItemSlot>();
+   
+        inventory = pinventory;
 
-        //listener for item equips 
+        //listener for item equips and unequips
         EventManager.Current.RegisterListener<ItemEquipped>(UpdateSlot);
         EventManager.Current.RegisterListener<ItemUnequipped>(ClearSlot);
 
@@ -88,41 +72,6 @@ public class ItemPanel : MonoBehaviour
 
     }
 
-    public void EnablePanel()
-    {
-        panelactive = true;
-        panel.enabled = true;
-
-        foreach (Image img in slotImages)
-        {
-            img.enabled = true;
-        }
-        foreach (BoxCollider2D col in slotColliders)
-        {
-            col.enabled = true;
-        
-        }
-
-        foreach (TextMeshProUGUI text in itemTexts)
-        {
-            text.enabled = true;
-        
-        }
-
-
-
-        if (isdirty){
-            foreach (EquipmentType item in EquipmentType.GetValues(typeof(EquipmentType)))
-            {
-                if (inventory.GetItemSlot(item) != null)
-                {
-                    equipmentSlotDict[item].SetItem(inventory.GetItemSlot(item));
-                }
-            }
-
-            isdirty = false;
-        }
-    }
 
 
     void UpdateSlot(ItemEquipped itemequip) {
@@ -140,7 +89,6 @@ public class ItemPanel : MonoBehaviour
      void ClearSlot(ItemUnequipped item) {
         ItemSlot slot = equipmentSlotDict[item.equipment.equipmentType];
         slot.SetDefault();
-        // create a remove item event script 
     }
 
     public void DisablePanel()
@@ -162,6 +110,42 @@ public class ItemPanel : MonoBehaviour
 
     }
 
- 
+    public void EnablePanel()
+    {
+        panelactive = true;
+        panel.enabled = true;
+
+        foreach (Image img in slotImages)
+        {
+            img.enabled = true;
+        }
+        foreach (BoxCollider2D col in slotColliders)
+        {
+            col.enabled = true;
+
+        }
+
+        foreach (TextMeshProUGUI text in itemTexts)
+        {
+            text.enabled = true;
+
+        }
+
+
+
+        if (isdirty)
+        {
+            foreach (EquipmentType item in EquipmentType.GetValues(typeof(EquipmentType)))
+            {
+                if (inventory.GetItemSlot(item) != null)
+                {
+                    equipmentSlotDict[item].SetItem(inventory.GetItemSlot(item));
+                }
+            }
+
+            isdirty = false;
+        }
+    }
+
 
 }

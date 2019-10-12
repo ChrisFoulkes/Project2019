@@ -73,17 +73,14 @@ public class ItemSlot : MonoBehaviour
         {
 
             equipped.inventory.RemoveItem(equipped.equipmentType);
-            equipped = null;
-            empty = true;
-            itemImage.sprite = DefaultIcon;
+            SetDefault();
             waitingOnConfirm = false;
 
 
         }
         else if (ConfirmCheck.confirm == ConfirmResult.no)
         {
-            waitingOnConfirm = false;
-     
+            waitingOnConfirm = false;  
         }
     }
 
