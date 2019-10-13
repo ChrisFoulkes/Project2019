@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 
 
 
@@ -89,7 +88,10 @@ public class CharacterInventory : MonoBehaviour
         EquipmentData itemDatafile = ScriptableObject.CreateInstance<EquipmentData>();
         itemDatafile.item1 = equipmentDict[slot];
 
-        AssetDatabase.CreateAsset(itemDatafile, "Assets/ItemData.asset");
+
+        EquipmentData itemdata = (EquipmentData)Resources.Load("Itemdata.asset");
+
+        itemdata = itemDatafile;
 
     }
 }
