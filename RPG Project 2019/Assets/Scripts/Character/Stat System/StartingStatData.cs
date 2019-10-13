@@ -17,3 +17,4 @@ public class StartingStatData : ScriptableObject
 
     public List<BasicStatData> statList = new List<BasicStatData>();
 }
+

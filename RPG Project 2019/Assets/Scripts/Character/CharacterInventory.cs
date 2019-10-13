@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
+
+
 
 public class CharacterInventory : MonoBehaviour
 {
@@ -76,6 +79,17 @@ public class CharacterInventory : MonoBehaviour
 
 
         }
+
+    }
+
+
+    public void SaveItem(EquipmentType slot) {
+
+        Debug.Log("Save item!");
+        EquipmentData itemDatafile = ScriptableObject.CreateInstance<EquipmentData>();
+        itemDatafile.item1 = equipmentDict[slot];
+
+        AssetDatabase.CreateAsset(itemDatafile, "Assets/ItemData.asset");
 
     }
 }

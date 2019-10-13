@@ -24,6 +24,7 @@ public class Equipment
 
     List<Behaviour> itemBehaviours;
 
+    [System.NonSerialized]
     public CharacterInventory inventory;
 
    
