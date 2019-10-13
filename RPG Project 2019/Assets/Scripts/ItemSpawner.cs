@@ -6,8 +6,12 @@ public class ItemSpawner : MonoBehaviour, Iinteractable
 {
 
     public EquipmentType type = EquipmentType.Helm;
+
+    
     public string icon = "ItemIcons/icon_plate_helm";
     public Equipment equipmentDisplay;
+
+   
 
     // Start is called before the first frame update
     void Start()

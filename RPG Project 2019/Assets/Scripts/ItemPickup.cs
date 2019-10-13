@@ -5,13 +5,11 @@ using UnityEngine;
 public class ItemPickup : MonoBehaviour, Iinteractable
 {
 
-    public Equipment equipment;
-
-    
+    public ItemData item;
     // Start is called before the first frame update
     void Start()
     {
-        if (equipment == null) {
+        if (item == null) {
             gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 0f, 0f);
         }
     }
@@ -20,13 +18,12 @@ public class ItemPickup : MonoBehaviour, Iinteractable
     public void Interact(GameObject interacter)
     {
         CharacterInventory charinventory = interacter.GetComponent<CharacterInventory>();
+        if (item != null) {
 
-        if (!charinventory.CheckEmptySlot(EquipmentType.Helm))
-        {
-                 charinventory.RemoveItem(EquipmentType.Helm);
-        }
-        else {
-            PopupText.Instance.GenerateText("Grrrr no shiny for me to steal!");
+            item.equipment.itemBehaviours.Add(BonusBehaviour.CreateInstance<BonusBehaviour>());
+            charinventory.EquipItem(item.equipment);
+
+            
         }
 
     }

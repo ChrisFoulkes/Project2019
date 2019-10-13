@@ -85,11 +85,11 @@ public class CharacterInventory : MonoBehaviour
     public void SaveItem(EquipmentType slot) {
 
         Debug.Log("Save item!");
-        EquipmentData itemDatafile = ScriptableObject.CreateInstance<EquipmentData>();
+        EquipmentSaveData itemDatafile = ScriptableObject.CreateInstance<EquipmentSaveData>();
         itemDatafile.item1 = equipmentDict[slot];
 
 
-        EquipmentData itemdata = (EquipmentData)Resources.Load("Itemdata.asset");
+        EquipmentSaveData itemdata = (EquipmentSaveData)Resources.Load("Itemdata.asset");
 
         itemdata = itemDatafile;
 

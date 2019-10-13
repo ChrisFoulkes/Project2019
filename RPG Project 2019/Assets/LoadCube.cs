@@ -16,7 +16,7 @@ public class LoadCube : MonoBehaviour, Iinteractable
         if (inventory.CheckEmptySlot(EquipmentType.Helm))
         {
             Debug.Log("Loading Item!");
-            EquipmentData itemdata = (EquipmentData)Resources.Load("Itemdata");
+            EquipmentSaveData itemdata = (EquipmentSaveData)Resources.Load("Itemdata");
 
          
             inventory.EquipItem(itemdata.item1);

@@ -4,8 +4,8 @@ using UnityEngine;
 
 
 [System.Serializable]
-[CreateAssetMenu(fileName = "EquipmentData", menuName = "Equpment Data Files")]
-public class EquipmentData : ScriptableObject
+
+public class EquipmentSaveData : ScriptableObject
 {
     public Equipment item1;
 }

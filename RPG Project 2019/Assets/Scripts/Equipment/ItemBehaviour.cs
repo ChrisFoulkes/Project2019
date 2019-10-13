@@ -9,11 +9,12 @@ public enum BehaviourType {
     Character
 }
 
-
-public class Behaviour
+[System.Serializable]
+public class ItemBehaviour : ScriptableObject
 {
 
-    void Action() {
+
+    public virtual void Action() {
 
     }
 }

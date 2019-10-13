@@ -22,7 +22,7 @@ public class Equipment
     [SerializeField]
     List<StatModifier> itemStats = new List<StatModifier>();
 
-    List<Behaviour> itemBehaviours;
+    public List<ItemBehaviour> itemBehaviours;
 
     [System.NonSerialized]
     public CharacterInventory inventory;
@@ -38,6 +38,16 @@ public class Equipment
 
     public void AddItemStat(StatModifier mod) {
         itemStats.Add(mod);
+    }
+
+    public void AddItemStatSet(List<StatModifier> mods)
+    {
+        itemStats = mods;
+    }
+
+    public void AddItemBehaviourSet(List<ItemBehaviour> behaviours)
+    {
+        itemBehaviours = behaviours;
     }
 
     public void Equip(GameObject character) {
