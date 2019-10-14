@@ -21,3 +21,5 @@ MonoBehaviour:
     statName: 2
   - startingvalue: 0
     statName: 3
+  - startingvalue: 1000
+    statName: 4
