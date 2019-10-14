@@ -10,7 +10,7 @@ public class CharacterUIManager : MonoBehaviour
     GameObject inventoryPanel;
 
     StatPanel stats;
-    ItemPanel inventory;
+    ItemPanel itemPanel;
 
     
 
@@ -27,9 +27,9 @@ public class CharacterUIManager : MonoBehaviour
         inventoryPanel = transform.Find("CharacterInventoryUi").gameObject;
 
         stats = statPanel.GetComponent<StatPanel>();
-        inventory = inventoryPanel.GetComponent<ItemPanel>();
+        itemPanel = inventoryPanel.GetComponent<ItemPanel>();
 
-        inventory.Initalize(pinventory);
+        itemPanel.Initalize(pinventory);
         stats.Initalize();
     }
     // Start is called before the first frame update
@@ -43,27 +43,27 @@ public class CharacterUIManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.C))
         {
-            if (statPanel.activeSelf)
+            if (stats.panelactive)
             {
-                statPanel.SetActive(false);
+                stats.DisablePanel();
             }
             else
             {
-                statPanel.SetActive(true);
+                stats.EnablePanel();
             }
         }
 
         if (Input.GetKeyDown(KeyCode.T))
         {
-            if (inventory.panelactive)
+            if (itemPanel.panelactive)
             {
 
-                inventory.DisablePanel();
+                itemPanel.DisablePanel();
                 
             }
             else
             {
-                inventory.EnablePanel();
+                itemPanel.EnablePanel();
             }
         }
 

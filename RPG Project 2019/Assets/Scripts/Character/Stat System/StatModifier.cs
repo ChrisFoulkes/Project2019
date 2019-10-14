@@ -19,7 +19,10 @@ public class StatModifier
     public StatName target() {
         return targetStat;
     }
-  
+
+    public float GetValue() {
+        return Mathf.Round(value);
+    }
 
     public float Apply() {
         return value;

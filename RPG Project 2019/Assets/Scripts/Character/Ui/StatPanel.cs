@@ -6,13 +6,20 @@ using System.Linq;
 
 public class StatPanel : MonoBehaviour
 {
-
+    public bool panelactive = false;
     CharacterStats characterStats;
-
+    
 
 
     GameObject statsGroup;
-    TextMeshProUGUI[] statTexts;
+
+
+
+    GameObject statTextPrefab;
+    GameObject footerPanelPrefab;
+    GameObject textContainer;
+
+    GameObject headerPanel;
 
 
     bool isdirty = true;
@@ -21,6 +28,8 @@ public class StatPanel : MonoBehaviour
     public Dictionary<Stat, TextMeshProUGUI> statTextValues = new Dictionary<Stat, TextMeshProUGUI>();
 
     List<StatName> statnames = new List<StatName>();
+
+    
     void Start()
     {
 
@@ -36,64 +45,61 @@ public class StatPanel : MonoBehaviour
     public void Initalize() {
 
         characterStats = GameObject.Find("CharacterController").GetComponent<CharacterStats>();
-
-        statsGroup = transform.Find("StatValuesGroup").gameObject;
-
-        statTexts = statsGroup.GetComponentsInChildren<TextMeshProUGUI>();
-
-
-       
-       
-
-        statnames = characterStats.statDict.Keys.ToList();
-
-        int counter = 0;
-       
-
-        foreach (TextMeshProUGUI texts in statTexts)
-        {
-            if (counter == statnames.Count)
-            {
-                Debug.Log("statsGroup contains a stat value that the character does not contain!");
-                break;
-            }
-
-            statTextValues.Add(characterStats.statDict[statnames[counter]], texts);
-            texts.text = characterStats.statDict[statnames[counter]].Value.ToString();
-            counter++;
+        statTextPrefab = (GameObject)Resources.Load("Prefabs/StatBackground");
+        headerPanel = transform.Find("StatHeaderPanel").gameObject;
+        textContainer = transform.Find("StatTextContainer").gameObject;
+        footerPanelPrefab = (GameObject)Resources.Load("Prefabs/StatFooterPanel");
+        foreach (StatName stat in characterStats.statDict.Keys) {
+            GameObject go = Instantiate(statTextPrefab, textContainer.transform);
+            TextMeshProUGUI textvalue = go.GetComponentInChildren<TextMeshProUGUI>();
+            statTextValues.Add(characterStats.statDict[stat], textvalue);
+            textvalue.text = characterStats.statDict[stat].statName + " : " + characterStats.statDict[stat].Value.ToString();
         }
 
-        if (counter + 1 != statnames.Count)
-        {
-            Debug.Log("statsGroup missing a stat value that the character contains!");
+        Instantiate(footerPanelPrefab, textContainer.transform);
 
-        }
 
         EventManager.Current.RegisterListener<StatChange>(StatChange);
 
     }
 
-    void OnEnable() {
+    public void EnablePanel() {
+        headerPanel.SetActive(true);
+        textContainer.SetActive(true);
+
+        panelactive = true;
+
         if (isdirty)
         {
-            int counter = 0;
-            foreach (TextMeshProUGUI texts in statTexts)
+            
+            foreach (Stat stat in statTextValues.Keys)
             {
-                texts.text = characterStats.statDict[statnames[counter]].Value.ToString();
-                counter++;
+                statTextValues[stat].text = stat.statName + " : " + stat.Value.ToString();
             }
+
 
             isdirty = false;
         }
     }
 
+    public void DisablePanel() {
+        panelactive = false;
+        headerPanel.SetActive(false);
+        textContainer.SetActive(false);
+    }
+
     void StatChange(StatChange statChange) {
-        if (gameObject.activeSelf)
+        if (panelactive)
         {
-            if (statTextValues[statChange.Stat] != null)
+            if (statTextValues.ContainsKey(statChange.Stat))
             {
-                TextMeshProUGUI statText = statTextValues[statChange.Stat];
-                statText.text = statChange.Stat.Value.ToString();
+                if (statTextValues[statChange.Stat] != null)
+                {
+
+                    TextMeshProUGUI statText = statTextValues[statChange.Stat];
+                    statText.text = statChange.Stat.statName + " : " + statChange.Stat.Value.ToString();
+
+                } 
             }
         }
         else

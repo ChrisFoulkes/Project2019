@@ -6,7 +6,8 @@ public enum StatName {
     Strength,
     Agility,
     Intelligence,
-    Vitality
+    Vitality, 
+    AttackSpeed
 
 }
 

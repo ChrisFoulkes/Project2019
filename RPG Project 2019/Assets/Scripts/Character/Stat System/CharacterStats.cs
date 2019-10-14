@@ -13,7 +13,7 @@ public class CharacterStats : MonoBehaviour
 
     public Dictionary<StatName, Stat> statDict = new Dictionary<StatName, Stat>();
 
-    public List<Stat> statList = new List<Stat>();
+    
 
     public StatModifier increaseOne = new StatModifier(1f, StatName.Strength);
 
@@ -63,15 +63,16 @@ public class CharacterStats : MonoBehaviour
         //----------------------------------
     }
 
-    void GenerateStats(StartingStatData pstatlist) {
+    void GenerateStats(StartingStatData pstatlist)
+    {
 
         //resets stats-- warning!
 
-        statList.Clear();
+        //statList.Clear();
 
         foreach (BasicStatData statData in pstatlist.statList)
         {
-            
+
             if (statDict.ContainsKey(statData.statName))
             {
                 Debug.LogWarning("Player Duplicate stat implimentation warning!");
@@ -79,6 +80,8 @@ public class CharacterStats : MonoBehaviour
 
             statDict.Add(statData.statName, new Stat(statData.startingvalue, statData.statName));
         }
+
+        Debug.Log(statDict.Count);
 
     }
 }

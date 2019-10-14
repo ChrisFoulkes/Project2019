@@ -26,7 +26,7 @@ public class Equipment
 
     [System.NonSerialized]
     public CharacterInventory inventory;
-
+    public CharacterStats characterStats;
    
 
 
@@ -50,20 +50,36 @@ public class Equipment
         itemBehaviours = behaviours;
     }
 
+    public List<StatModifier> GetStatModifiers() {
+        return itemStats;
+    }
+
     public void Equip(GameObject character) {
+
         inventory = character.GetComponent<CharacterInventory>();
 
-        //foreach (StatModifier mod in itemStats) {
-        //    characterStats.statDict[mod.targetStat].AddModifier(mod);
-       // }
+        characterStats = character.GetComponent<CharacterStats>();
+
+        if (itemStats.Count > 0)
+        {
+            foreach (StatModifier mod in itemStats)
+            {
+                characterStats.statDict[mod.target()].AddModifier(mod);
+            }
+        }
     }
 
     public void Unequip() {
 
-    
-        //  foreach (StatModifier mod in itemStats) {
-        //        characterStats.statDict[mod.targetStat].RemoveModifier(mod);
-        //   }
+
+        if (itemStats.Count > 0)
+        {
+
+            foreach (StatModifier mod in itemStats)
+            {
+                characterStats.statDict[mod.target()].RemoveModifier(mod);
+            }
+        }
     }
 }
 

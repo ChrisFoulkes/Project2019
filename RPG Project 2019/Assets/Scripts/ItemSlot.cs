@@ -58,6 +58,19 @@ public class ItemSlot : MonoBehaviour
        
     }
 
+    void OnMouseEnter()
+    {
+        if (!empty)
+        {
+            ItemPopup.Instance.LoadItem(equipped);
+        }
+    }
+
+ 
+    void OnMouseExit()
+    {
+        ItemPopup.Instance.DisableItemPopup();
+    }
     IEnumerator RightClickRemoveItem()
     {
         // whatever you're doing now with the temporary / placement preview building
