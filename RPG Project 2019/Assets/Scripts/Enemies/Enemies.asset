@@ -12,17 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f00570d224b6e84989a15dd808a9e21, type: 3}
   m_Name: Enemies
   m_EditorClassIdentifier: 
-  Name: Borg
-  SpritePath: Enemies/Ghost
-  animatorPath: 
-  enemyType: 0
-  healthPoints: 100
-  statList:
-  - startingvalue: 1
-    statName: 0
-  - startingvalue: 1
-    statName: 2
-  - startingvalue: 1
-    statName: 1
-  - startingvalue: 1
-    statName: 3
+  Name: 
+  Sprite: 
+  animator: {fileID: 0}
+  statList: []

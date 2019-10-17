@@ -13,9 +13,7 @@ public class MovementController : MonoBehaviour
     Animator animator;
     //Controls the Character Movement Speed
     float movespeed = 5f;
-
-    int[] colliding = {0, 0, 0, 0};
-  
+    
 
 
     void Start()
