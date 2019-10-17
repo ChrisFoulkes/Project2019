@@ -2151,7 +2151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 493968521}
   updateRate: 3
-  speed: 4
+  speed: 5
   fMode: 0
   pathIsEnded: 0
   moving: 0
