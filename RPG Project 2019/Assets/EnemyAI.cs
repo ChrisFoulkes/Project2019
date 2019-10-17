@@ -13,7 +13,7 @@ public class EnemyAI : MonoBehaviour {
 
     public Path path;
 
-    public float speed = 300f;
+    public float speed = 3f;
     public ForceMode2D fMode;
     
     public bool pathIsEnded = false;
@@ -72,7 +72,6 @@ public class EnemyAI : MonoBehaviour {
     {
         // AiAttack();
         rb.velocity = new Vector2(0, 0);
-        transform.position = transform.position;
         if (Vector2.Distance(transform.position, target.position) <= 2f)
         {
             moving = false;
