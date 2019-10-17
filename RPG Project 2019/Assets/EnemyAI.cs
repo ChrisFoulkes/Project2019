@@ -70,9 +70,9 @@ public class EnemyAI : MonoBehaviour {
 
     void FixedUpdate()
     {
-       // AiAttack();
-
-
+        // AiAttack();
+        rb.velocity = new Vector2(0, 0);
+        transform.position = transform.position;
         if (Vector2.Distance(transform.position, target.position) <= 2f)
         {
             moving = false;
@@ -122,29 +122,19 @@ public class EnemyAI : MonoBehaviour {
        
         Vector3 dir = (path.vectorPath[currentWaypoint] - transform.position).normalized;
 
+  
         dir *= speed * Time.fixedDeltaTime;
         dir.z = 0;
-        rb.AddForce(dir);
        
-        //transform.position = transform.position* speed * Time.fixedDeltaTime;
-        rb.AddForce(dir, fMode);
+       // rb.AddForce(dir, fMode);
+        //transform.position = dir;
 
-
-        //if (dir.y > 0.1)
-        //{
-        //    dir = new Vector2(dir.x, 20f);
-
-        //}
-        //else
-        //{
-        //   rb.AddForce(dir, fMode);
-        //}
+        transform.position = new Vector3(transform.position.x, transform.position.y) + (dir);
 
         float dist = (Vector3.Distance(transform.position, path.vectorPath[currentWaypoint]));
 
         if (dist < nextWaypointDistance)
         {
-            Debug.Log("moving!");
             currentWaypoint++;
             return;
         }

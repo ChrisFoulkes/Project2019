@@ -12,9 +12,9 @@ public class MovementController : MonoBehaviour
     Rigidbody2D rbody;
     Animator animator;
     //Controls the Character Movement Speed
-    float movespeed = 2f;
+    float movespeed = 5f;
 
-    
+    int[] colliding = {0, 0, 0, 0};
   
 
 
@@ -47,11 +47,16 @@ public class MovementController : MonoBehaviour
 
     void FixedUpdate()
     {
+        //use to stop on hit momentum from enemy rigidbodies 
+   
+        rbody.velocity = new Vector2(0,0);
+
         Move();
     }
 
 
     public Vector2 GetDirection() {
+        // might need to impliment some form of directional to check if a direction is colliding so walking animations are cancelled if walking into a wall
         return direction;
     }
 
@@ -109,8 +114,10 @@ public class MovementController : MonoBehaviour
             animator.SetInteger("Walking", 0);
         }
     }
+
+    
     void Move() {
-        rbody.transform.Translate(direction * movespeed * Time.fixedDeltaTime);
+        transform.position = new Vector2(transform.position.x, transform.position.y) + (direction * movespeed * Time.fixedDeltaTime);
     }
 
 }
