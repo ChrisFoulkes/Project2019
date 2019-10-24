@@ -13,12 +13,16 @@ public class Enemy : MonoBehaviour, ITakeDamage
 
     SpriteRenderer spriteRenderer;
     BoxCollider2D colliderBox;
+    EnemyAttack enemyAttack;
     // Start is called before the first frame update
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         colliderBox = GetComponent<BoxCollider2D>();
+
+        enemyAttack = GetComponent <EnemyAttack>();
+
         LoadEnemyData();
     }
 
@@ -32,6 +36,8 @@ public class Enemy : MonoBehaviour, ITakeDamage
         foreach (EnemyStatData statData in enemyData.statList) {
             enemyStats.Add(new Stat(statData.startingvalue, statData.statName));
         }
+
+        enemyAttack.enemyAbilities = enemyData.enemyAbilities;
 
         healthPoints = enemyData.healthPoints;
 

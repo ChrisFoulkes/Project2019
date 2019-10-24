@@ -5,33 +5,36 @@ using Pathfinding;
 public class EnemyAI : MonoBehaviour {
 
     public Transform target;
-
+    
     public float updateRate = 2f;
 
     private Seeker seeker;
     private Rigidbody2D rb;
-
+    private EnemyAttack enemyAttack;
     public Path path;
 
     public float speed = 3f;
     public ForceMode2D fMode;
     
-    public bool pathIsEnded = false;
+    bool pathIsEnded = false;
 
 
-    public bool moving = true;
-    public bool attacking = true;
+    bool moving = true;
 
     private int currentWaypoint = 0;
 
     public float nextWaypointDistance = 3;
 
+    public float targetDistance = 2;
+
     private void Start()
     {
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
+        enemyAttack = GetComponent<EnemyAttack>();
 
         GameObject targetgo = GameObject.FindGameObjectWithTag("Player");
+
         target = targetgo.transform;
         if (target == null) {
             Debug.Log("Target not Found!");
@@ -70,22 +73,29 @@ public class EnemyAI : MonoBehaviour {
 
     void FixedUpdate()
     {
-        // AiAttack();
-        rb.velocity = new Vector2(0, 0);
-        if (Vector2.Distance(transform.position, target.position) <= 2f)
+        //this might not be desireable it might be useful to allow certain enemies to attack while moving!
+        if (enemyAttack.attacking == false)
         {
-            moving = false;
 
-        }
-        else {
-            moving = true;
-        }
+            enemyAttack.TryAttack();
+
+            if (Vector2.Distance(transform.position, target.position) <= targetDistance)
+            {
+                moving = false;
+
+            }
+            else
+            {
+                moving = true;
+            }
 
 
-        if (moving)
-        {
-         
-            Move();
+            if (moving)
+            {
+
+                Move();
+            }
+
         }
     }
 
@@ -124,10 +134,7 @@ public class EnemyAI : MonoBehaviour {
   
         dir *= speed * Time.fixedDeltaTime;
         dir.z = 0;
-       
-       // rb.AddForce(dir, fMode);
-        //transform.position = dir;
-
+     
         transform.position = new Vector3(transform.position.x, transform.position.y) + (dir);
 
         float dist = (Vector3.Distance(transform.position, path.vectorPath[currentWaypoint]));
@@ -140,16 +147,5 @@ public class EnemyAI : MonoBehaviour {
     }
 
 
-    //basic Attack
-
-
-    public void AiAttack() {
-        if(CanAttack())
-        gameObject.GetComponent<Animator>().Play("AttackAnimation");
-
-    }
-
-    public bool CanAttack() {
-        return true;
-    }
+   
 }

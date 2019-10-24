@@ -31,5 +31,7 @@ public class EnemyData : ScriptableObject
    
     public List<EnemyStatData> statList = new List<EnemyStatData>();
 
+    public List<EnemyAbilities> enemyAbilities = new List<EnemyAbilities>();
+
 }
 

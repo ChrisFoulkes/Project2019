@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58217bc739051e74eb2be219830d600c, type: 3}
+  m_Name: BasicAbility
+  m_EditorClassIdentifier: 
+  attackName: Fireball
+  animation: 
+  attackDuration: 4
+  abilityType: 1
+  attackConditions:
+  - {fileID: 11400000, guid: ab5aa1be514e75245a46458ad43f4a36, type: 2}

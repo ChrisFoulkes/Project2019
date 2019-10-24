@@ -26,3 +26,5 @@ MonoBehaviour:
     statName: 1
   - startingvalue: 1
     statName: 3
+  enemyAbilities:
+  - {fileID: 11400000, guid: 2f974bbf12a9e3b46ba813a7266ae21b, type: 2}
