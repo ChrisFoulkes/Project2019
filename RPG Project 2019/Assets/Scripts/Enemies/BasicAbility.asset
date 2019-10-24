@@ -18,3 +18,5 @@ MonoBehaviour:
   abilityType: 1
   attackConditions:
   - {fileID: 11400000, guid: ab5aa1be514e75245a46458ad43f4a36, type: 2}
+  attackBehaviours:
+  - {fileID: 11400000, guid: 09351510ea5c5324599f497be87fab80, type: 2}

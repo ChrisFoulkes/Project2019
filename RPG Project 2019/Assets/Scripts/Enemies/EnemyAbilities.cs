@@ -16,16 +16,22 @@ public class EnemyAbilities : ScriptableObject
 
     public string attackName;
     public string animation;
-    public float attackDuration = 2f; 
+    public float attackDuration = 2f;
 
     public EnemyAbilityType abilityType;
 
     public List<EnemyAttackConditions> attackConditions = new List<EnemyAttackConditions>();
 
-    public bool ConditionCheck(Transform self, Transform target) {
+    public List<EnemyAbilityBehaviours> attackBehaviours = new List<EnemyAbilityBehaviours>();
+
+
+    public bool ConditionCheck(Transform self, Transform target)
+    {
         bool conditions = true;
-        foreach (EnemyAttackConditions condition in attackConditions) {
-            if (!condition.CheckCondition(self, target)){
+        foreach (EnemyAttackConditions condition in attackConditions)
+        {
+            if (!condition.CheckCondition(self, target))
+            {
                 conditions = false;
                 break;
             }
@@ -35,13 +41,18 @@ public class EnemyAbilities : ScriptableObject
         {
             return true;
         }
-        else {
+        else
+        {
             return false;
         }
     }
 
     // need to replace this with an action scriptable object system loaded from the data
-    public void Action(Transform self, Transform target) {
-        Instantiate(Resources.Load("FireballPrefab") as GameObject);
+    public void Action(Transform self, Transform target)
+    {
+        foreach (EnemyAbilityBehaviours behaviour in attackBehaviours)
+        {
+            behaviour.Action(self);
+        }
     }
 }
