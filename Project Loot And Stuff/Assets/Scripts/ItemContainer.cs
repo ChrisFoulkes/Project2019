@@ -30,13 +30,30 @@ public class ItemContainer : MonoBehaviour, IInteractable
     }
 
 
-    public void Action()
+    public void SetActions()
     {
-        Debug.Log("Opening Chest");
-        spriteRenderer.sprite = openedSprite;
-        opened = false;
+        if (opened) {
+            InteractionPanel.Instance.SetAction("Close", Close);
+        }
+        else
+        {
+            InteractionPanel.Instance.SetAction("Open", Open);
+        }
+
 
     }
 
+    public void Open() {
+        Debug.Log("Opening Chest");
+        spriteRenderer.sprite = openedSprite;
+        opened = true;
+    }
+
+    public void Close()
+    {
+        Debug.Log("Closing Chest");
+        spriteRenderer.sprite = closedSprite;
+        opened = false;
+    }
 
 }

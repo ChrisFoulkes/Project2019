@@ -5,5 +5,5 @@ using UnityEngine;
 public interface IInteractable
 {
 
-    void Action();
+    void SetActions();
 }

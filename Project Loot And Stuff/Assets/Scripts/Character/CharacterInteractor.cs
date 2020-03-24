@@ -15,20 +15,22 @@ public class CharacterInteractor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        /*
         if (Input.GetKeyDown(KeyCode.E)) {
             RaycastHit2D[] interactables = Physics2D.CircleCastAll(this.transform.position, 2f, new Vector2(0f, 0f), Mathf.Infinity, mask);
             if (interactables.Length != 0) {
                 GameObject target = interactables[0].transform.gameObject;
                 //target.GetComponent<NpcCharacter>().Interact();
-                target.GetComponent<IInteractable>().Action();
+                target.GetComponent<IInteractable>().GetActions();
             }
         }
-
+        */
 
         if (Input.GetMouseButtonDown(1))
         {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Debug.Log(Input.mousePosition);
+
             Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
 
             RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
@@ -36,8 +38,8 @@ public class CharacterInteractor : MonoBehaviour
             {
                 if (hit.collider.GetComponent<IInteractable>() != null)
                 {
-                    Debug.Log(hit.collider.gameObject.name);
-                    InteractionPanel.Instance.Enabled(true);
+                    InteractionPanel.Instance.Enabled(true); // has to disables all active buttons for set position shift
+                    hit.collider.GetComponent<IInteractable>().SetActions();
                     InteractionPanel.Instance.SetPosition();
                 }
                 else
@@ -49,22 +51,6 @@ public class CharacterInteractor : MonoBehaviour
             else {
                 InteractionPanel.Instance.Enabled(false);
             }
-
-            //  Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            // if (Physics.Raycast(ray, out hit, 100f, mask)) {
-            //  if (hit.collider != null) {
-            // Debug.Log(hit.transform.gameObject.name);
-            //   }
-            //  }
-            /*
-            RaycastHit2D[] interactables = Physics2D.CircleCastAll(this.transform.position, 2f, new Vector2(0f, 0f), Mathf.Infinity, mask);
-            if (interactables.Length != 0)
-            {
-                GameObject target = interactables[0].transform.gameObject;
-                //target.GetComponent<NpcCharacter>().Interact();
-                target.GetComponent<IInteractable>().Action();
-            }
-            */
         }
     }
 }
