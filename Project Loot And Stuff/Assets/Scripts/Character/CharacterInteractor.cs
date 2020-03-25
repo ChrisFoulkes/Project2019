@@ -4,8 +4,11 @@ using UnityEngine;
 using Pathfinding;
 public class CharacterInteractor : MonoBehaviour
 {
- 
+    public PlayerMovement playerMovement;
     LayerMask mask;
+
+
+    public bool interactionOpened = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,7 +34,6 @@ public class CharacterInteractor : MonoBehaviour
         {
 
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
             Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
 
            
@@ -40,18 +42,43 @@ public class CharacterInteractor : MonoBehaviour
             {
                 if (hit.collider.GetComponent<IInteractable>() != null)
                 {
-                    InteractionPanel.Instance.Enabled(true); // has to disables all active buttons for set position shift
-                    hit.collider.GetComponent<IInteractable>().SetActions();
-                    InteractionPanel.Instance.SetPosition();
+                    if (Vector2.Distance(transform.position, mousePos2D) < 3f)
+                    {
+                        playerMovement.StopPath();
+                        InteractionPanel.Instance.Enabled(true); // has to disables all active buttons for set position shift
+                        hit.collider.GetComponent<IInteractable>().SetActions();
+                        InteractionPanel.Instance.SetPosition();
+                        interactionOpened = true;
+                    }else
+                    {
+
+                        playerMovement.SetDirection(mousePos2D);
+                    }
                 }
                 else
                 {
+
+                    if (interactionOpened == false)
+                    {
+                        playerMovement.SetDirection(mousePos);
+                    }
+
                     InteractionPanel.Instance.Enabled(false);
+                    interactionOpened = false;
                 }
 
             }
             else {
+
+
+                if (interactionOpened == false)
+                {
+
+                    playerMovement.SetDirection(mousePos);
+                }
+
                 InteractionPanel.Instance.Enabled(false);
+                interactionOpened = false;
             }
         }
     }

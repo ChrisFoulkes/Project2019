@@ -7,7 +7,9 @@ public class PlayerMovement : MonoBehaviour
 
     
     public float movespeed = 2f;
+    public float nextWaypointDistance = 0.5f;
 
+    public CharacterInteractor characterInteractor;
     public Seeker seeker;
     public AstarPath astar;
     public Rigidbody2D rbody;
@@ -16,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Path path;
     private int currentWaypoint;
-    private float nextWaypointDistance = 0.5f;
+
     bool reachedEndOfPath = true;
     // Start is called before the first frame update
     void Start()
@@ -32,10 +34,9 @@ public class PlayerMovement : MonoBehaviour
         
         if (Input.GetMouseButtonDown(1))
         {
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-            
-            SetDirection(mousePos);
+          
+      
+  
         }
     }
 
@@ -45,13 +46,17 @@ public class PlayerMovement : MonoBehaviour
         Move();
     }
 
-    void SetDirection(Vector2 pos)
+    public void SetDirection(Vector2 pos)
     {
      
       
         astar.Scan();
         seeker.StartPath(transform.position, pos, OnPathComplete);
        
+    }
+
+    public void StopPath() {
+        currentWaypoint = 100;
     }
 
     void OnPathComplete(Path p) {
