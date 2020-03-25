@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+
+
+//needs alot of work to make it neat and tidy 
+
 public class InteractionPanel : MonoBehaviour
 {
     public static InteractionPanel Instance { get; private set; }
@@ -62,8 +66,11 @@ public class InteractionPanel : MonoBehaviour
         }
 
         ActionButtons[counter].GetComponentInChildren<TextMeshProUGUI>().text = pText;
+
         ActionButtons[counter].GetComponent<Button>().onClick.AddListener(delegate { func(); });
+
         ActionButtons[counter].GetComponent<Button>().onClick.AddListener(Clicked);
+
         container.transform.GetChild(counter).gameObject.SetActive(true);
         counter++; 
     }
