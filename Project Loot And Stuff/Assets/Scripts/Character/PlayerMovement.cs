@@ -59,14 +59,15 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
 
-        astar.data.gridGraph.center = transform.position;
+      //  astar.data.gridGraph.center = transform.position;
         Move();
     }
 
     public void SetDirection(Vector2 pos)
     {
-        astar.Scan();
-       // seeker.CancelCurrentPathRequest(true);
+        //astar.Scan();
+        // seeker.CancelCurrentPathRequest(true);
+       
         seeker.StartPath(transform.position, pos, OnPathComplete);
    
     }
